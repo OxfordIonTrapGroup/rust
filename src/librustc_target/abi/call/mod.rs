@@ -21,6 +21,7 @@ mod mips64;
 mod msp430;
 mod nvptx;
 mod nvptx64;
+mod or1k;
 mod powerpc;
 mod powerpc64;
 mod s390x;
@@ -481,6 +482,7 @@ impl<'a, Ty> FnType<'a, Ty> {
             "arm" => arm::compute_abi_info(cx, self),
             "mips" => mips::compute_abi_info(cx, self),
             "mips64" => mips64::compute_abi_info(cx, self),
+            "or1k" => or1k::compute_abi_info(self),
             "powerpc" => powerpc::compute_abi_info(cx, self),
             "powerpc64" => powerpc64::compute_abi_info(cx, self),
             "s390x" => s390x::compute_abi_info(cx, self),
