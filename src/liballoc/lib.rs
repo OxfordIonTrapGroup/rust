@@ -118,9 +118,21 @@ mod boxed {
 }
 #[cfg(test)]
 mod boxed_test;
+#[cfg(not(target_arch = "or1k"))]
 pub mod arc;
 pub mod rc;
 pub mod raw_vec;
+#[cfg(not(target_arch = "or1k"))]
 pub mod oom;
+#[cfg(target_arch = "or1k")]
+pub mod oom {
+    pub fn oom() -> ! {
+        use core::intrinsics;
+        unsafe { intrinsics::abort() }
+    }
+    pub fn set_oom_handler(_handler: fn() -> !) {
+        unimplemented!();
+    }
+}
 
 pub use oom::oom;

@@ -20,6 +20,7 @@ use cabi_arm;
 use cabi_aarch64;
 use cabi_powerpc;
 use cabi_powerpc64;
+use cabi_or1k;
 use cabi_mips;
 use cabi_asmjs;
 use machine::{llalign_of_min, llsize_of, llsize_of_real, llsize_of_store};
@@ -503,6 +504,7 @@ impl FnType {
             "mips" => cabi_mips::compute_abi_info(ccx, self),
             "powerpc" => cabi_powerpc::compute_abi_info(ccx, self),
             "powerpc64" => cabi_powerpc64::compute_abi_info(ccx, self),
+            "or1k" => cabi_or1k::compute_abi_info(ccx, self),
             "asmjs" => cabi_asmjs::compute_abi_info(ccx, self),
             a => ccx.sess().fatal(&format!("unrecognized arch \"{}\" in target specification", a))
         }
