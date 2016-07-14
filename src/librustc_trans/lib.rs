@@ -120,6 +120,7 @@ mod cabi_mips64;
 mod cabi_msp430;
 mod cabi_nvptx;
 mod cabi_nvptx64;
+mod cabi_or1k;
 mod cabi_powerpc;
 mod cabi_powerpc64;
 mod cabi_s390x;
