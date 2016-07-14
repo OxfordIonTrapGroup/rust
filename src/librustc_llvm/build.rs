@@ -107,6 +107,8 @@ fn main() {
         optional_components.push("hexagon");
     }
 
+    optional_components.push("or1k");
+
     // FIXME: surely we don't need all these components, right? Stuff like mcjit
     //        or interpreter the compiler itself never uses.
     let required_components = &["ipo",

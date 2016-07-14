@@ -346,6 +346,12 @@ pub fn initialize_available_targets() {
                  LLVMInitializePowerPCTargetMC,
                  LLVMInitializePowerPCAsmPrinter,
                  LLVMInitializePowerPCAsmParser);
+    init_target!(llvm_component = "or1k",
+                 LLVMInitializeOR1KTargetInfo,
+                 LLVMInitializeOR1KTarget,
+                 LLVMInitializeOR1KTargetMC,
+                 LLVMInitializeOR1KAsmPrinter,
+                 LLVMInitializeOR1KAsmParser);
     init_target!(llvm_component = "systemz",
                  LLVMInitializeSystemZTargetInfo,
                  LLVMInitializeSystemZTarget,

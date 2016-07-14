@@ -23,6 +23,7 @@ use cabi_powerpc64;
 use cabi_s390x;
 use cabi_mips;
 use cabi_mips64;
+use cabi_or1k;
 use cabi_asmjs;
 use cabi_msp430;
 use cabi_sparc;
@@ -900,6 +901,7 @@ impl<'a, 'tcx> FnType<'tcx> {
             "arm" => cabi_arm::compute_abi_info(ccx, self),
             "mips" => cabi_mips::compute_abi_info(ccx, self),
             "mips64" => cabi_mips64::compute_abi_info(ccx, self),
+            "or1k" => cabi_or1k::compute_abi_info(ccx, self),
             "powerpc" => cabi_powerpc::compute_abi_info(ccx, self),
             "powerpc64" => cabi_powerpc64::compute_abi_info(ccx, self),
             "s390x" => cabi_s390x::compute_abi_info(ccx, self),
