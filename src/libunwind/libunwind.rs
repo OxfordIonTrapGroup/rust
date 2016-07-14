@@ -71,6 +71,9 @@ pub const unwinder_private_data_size: usize = 2;
 #[cfg(target_os = "emscripten")]
 pub const unwinder_private_data_size: usize = 20;
 
+#[cfg(target_arch = "or1k")]
+pub const unwinder_private_data_size: usize = 2;
+
 #[repr(C)]
 pub struct _Unwind_Exception {
     pub exception_class: _Unwind_Exception_Class,
