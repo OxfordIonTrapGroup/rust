@@ -359,6 +359,9 @@ pub struct TargetOptions {
     pub obj_is_bitcode: bool,
 
     /// Don't use this field; instead use the `.max_atomic_width()` method.
+    pub min_atomic_width: Option<u64>,
+
+    /// Don't use this field; instead use the `.max_atomic_width()` method.
     pub max_atomic_width: Option<u64>,
 
     /// Panic strategy: "unwind" or "abort"
@@ -415,6 +418,7 @@ impl Default for TargetOptions {
             allow_asm: true,
             has_elf_tls: false,
             obj_is_bitcode: false,
+            min_atomic_width: None,
             max_atomic_width: None,
             panic_strategy: PanicStrategy::Unwind,
             abi_blacklist: vec![],
@@ -435,6 +439,12 @@ impl Target {
             },
             abi => abi
         }
+    }
+
+    /// Minimum integer size in bits that this target can perform atomic
+    /// operations on.
+    pub fn min_atomic_width(&self) -> u64 {
+        self.options.min_atomic_width.unwrap_or(8)
     }
 
     /// Maximum integer size in bits that this target can perform atomic
@@ -576,6 +586,7 @@ impl Target {
         key!(has_elf_tls, bool);
         key!(obj_is_bitcode, bool);
         key!(max_atomic_width, Option<u64>);
+        key!(min_atomic_width, Option<u64>);
         try!(key!(panic_strategy, PanicStrategy));
 
         if let Some(array) = obj.find("abi-blacklist").and_then(Json::as_array) {
@@ -734,6 +745,7 @@ impl ToJson for Target {
         target_option_val!(exe_allocation_crate);
         target_option_val!(has_elf_tls);
         target_option_val!(obj_is_bitcode);
+        target_option_val!(min_atomic_width);
         target_option_val!(max_atomic_width);
         target_option_val!(panic_strategy);
 
