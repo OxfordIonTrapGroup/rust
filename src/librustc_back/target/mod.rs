@@ -340,6 +340,10 @@ pub struct TargetOptions {
     // will 'just work'.
     pub obj_is_bitcode: bool,
 
+    /// Minimum integer size in bits that this target can perform atomic
+    /// operations on.
+    pub min_atomic_width: u64,
+
     /// Maximum integer size in bits that this target can perform atomic
     /// operations on.
     pub max_atomic_width: u64,
@@ -392,6 +396,7 @@ impl Default for TargetOptions {
             allow_asm: true,
             has_elf_tls: false,
             obj_is_bitcode: false,
+            min_atomic_width: 0,
             max_atomic_width: 0,
         }
     }
@@ -450,6 +455,8 @@ impl Target {
             options: Default::default(),
         };
 
+        // Default min-atomic-width to an octet
+        base.options.min_atomic_width = 8;
         // Default max-atomic-width to target-pointer-width
         base.options.max_atomic_width = base.target_pointer_width.parse().unwrap();
 
@@ -531,6 +538,7 @@ impl Target {
         key!(exe_allocation_crate);
         key!(has_elf_tls, bool);
         key!(obj_is_bitcode, bool);
+        key!(min_atomic_width, u64);
         key!(max_atomic_width, u64);
 
         Ok(base)
@@ -674,6 +682,7 @@ impl ToJson for Target {
         target_option_val!(exe_allocation_crate);
         target_option_val!(has_elf_tls);
         target_option_val!(obj_is_bitcode);
+        target_option_val!(min_atomic_width);
         target_option_val!(max_atomic_width);
 
         Json::Object(d)
