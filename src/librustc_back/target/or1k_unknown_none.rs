@@ -21,6 +21,7 @@ pub fn target() -> TargetResult {
         arch: "or1k".to_string(),
         data_layout: "E-m:e-p:32:32-i8:8:8-i16:16:16-i64:32:32-f64:32:32-v64:32:32-v128:32:32-a0:0:32-n32".to_string(),
         options: TargetOptions {
+            min_atomic_width: 32,
             max_atomic_width: 32,
             ..Default::default()
         }

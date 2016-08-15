@@ -12,5 +12,4 @@
 
 #![stable(feature = "rust1", since = "1.0.0")]
 
-#[cfg(not(target_arch = "or1k"))]
 pub mod atomic;
