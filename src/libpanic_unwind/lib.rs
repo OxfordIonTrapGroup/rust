@@ -68,7 +68,7 @@ mod imp;
 mod imp;
 
 // i686-pc-windows-gnu and all others
-#[cfg(any(unix, all(windows, target_arch = "x86", target_env = "gnu")))]
+#[cfg(any(unix, all(windows, target_arch = "x86", target_env = "gnu"), target_family = "none"))]
 #[path = "gcc.rs"]
 mod imp;
 
