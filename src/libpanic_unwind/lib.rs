@@ -70,7 +70,8 @@ mod imp;
 // i686-pc-windows-gnu and all others
 #[cfg(any(all(unix, not(target_os = "emscripten")),
           target_os = "redox",
-          all(windows, target_arch = "x86", target_env = "gnu")))]
+          all(windows, target_arch = "x86", target_env = "gnu"),
+          target_family = "none"))]
 #[path = "gcc.rs"]
 mod imp;
 
