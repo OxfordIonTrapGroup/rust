@@ -23,6 +23,7 @@ pub fn target() -> TargetResult {
         options: TargetOptions {
             min_atomic_width: 32,
             max_atomic_width: 32,
+            target_family: Some("none".to_string()),
             ..Default::default()
         }
     })
