@@ -252,6 +252,7 @@ unsafe extern "C" fn rust_eh_personality(state: uw::_Unwind_State,
     }
 }
 
+#[cfg(not(llvm_libunwind))]
 unsafe fn find_eh_action(context: *mut uw::_Unwind_Context) -> EHAction {
     let lsda = uw::_Unwind_GetLanguageSpecificData(context) as *const u8;
     let mut ip_before_instr: c_int = 0;
@@ -263,6 +264,21 @@ unsafe fn find_eh_action(context: *mut uw::_Unwind_Context) -> EHAction {
         func_start: uw::_Unwind_GetRegionStart(context),
         get_text_start: &|| uw::_Unwind_GetTextRelBase(context),
         get_data_start: &|| uw::_Unwind_GetDataRelBase(context),
+    };
+    eh::find_eh_action(lsda, &eh_context)
+}
+
+#[cfg(llvm_libunwind)]
+unsafe fn find_eh_action(context: *mut uw::_Unwind_Context) -> EHAction {
+    let lsda = uw::_Unwind_GetLanguageSpecificData(context) as *const u8;
+    let ip = uw::_Unwind_GetIP(context);
+    let eh_context = EHContext {
+        // The return address points 1 byte past the call instruction,
+        // which could be in the next IP range in LSDA range table.
+        ip: ip,
+        func_start: uw::_Unwind_GetRegionStart(context),
+        get_text_start: &|| unimplemented!(),
+        get_data_start: &|| unimplemented!(),
     };
     eh::find_eh_action(lsda, &eh_context)
 }
