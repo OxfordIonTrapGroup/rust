@@ -8,9 +8,8 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use libc::c_uint;
 use llvm;
-use llvm::{Integer, Pointer, Float, Double, Struct, Array};
+use llvm::{Integer, Pointer, Float, Double, Struct, Array, Attribute};
 use abi::{FnType, ArgType};
 use context::CrateContext;
 use type_::Type;
@@ -91,7 +90,6 @@ fn classify_ret_ty(ccx: &CrateContext, ret: &mut ArgType) {
 }
 
 fn classify_arg_ty(ccx: &CrateContext, arg: &mut ArgType, offset: &mut usize) {
-    let orig_offset = *offset;
     let size = ty_size(arg.ty) * 8;
     let mut align = ty_align(arg.ty);
 
@@ -99,11 +97,11 @@ fn classify_arg_ty(ccx: &CrateContext, arg: &mut ArgType, offset: &mut usize) {
     *offset = align_up_to(*offset, align);
     *offset += align_up_to(size, align * 8) / 8;
 
-    if !is_reg_ty(arg.ty) {
-        arg.cast = Some(struct_ty(ccx, arg.ty));
-        arg.pad = padding_ty(ccx, align, orig_offset);
-    } else {
+    if is_reg_ty(arg.ty) {
         arg.extend_integer_width_to(32);
+    } else {
+        arg.make_indirect(ccx);
+        arg.attrs.set(Attribute::ByVal);
     }
 }
 
@@ -115,39 +113,6 @@ fn is_reg_ty(ty: Type) -> bool {
         | Double => true,
         _ => false
     };
-}
-
-fn padding_ty(ccx: &CrateContext, align: usize, offset: usize) -> Option<Type> {
-    if ((align - 1 ) & offset) > 0 {
-        Some(Type::i32(ccx))
-    } else {
-        None
-    }
-}
-
-fn coerce_to_int(ccx: &CrateContext, size: usize) -> Vec<Type> {
-    let int_ty = Type::i32(ccx);
-    let mut args = Vec::new();
-
-    let mut n = size / 32;
-    while n > 0 {
-        args.push(int_ty);
-        n -= 1;
-    }
-
-    let r = size % 32;
-    if r > 0 {
-        unsafe {
-            args.push(Type::from_ref(llvm::LLVMIntTypeInContext(ccx.llcx(), r as c_uint)));
-        }
-    }
-
-    args
-}
-
-fn struct_ty(ccx: &CrateContext, ty: Type) -> Type {
-    let size = ty_size(ty) * 8;
-    Type::struct_(ccx, &coerce_to_int(ccx, size), false)
 }
 
 pub fn compute_abi_info(ccx: &CrateContext, fty: &mut FnType) {
