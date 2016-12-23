@@ -208,6 +208,9 @@ pub fn rustc<'a>(build: &'a Build, target: &str, compiler: &Compiler<'a>) {
     if let Some(s) = target_config.and_then(|c| c.llvm_config.as_ref()) {
         cargo.env("CFG_LLVM_ROOT", s);
     }
+    if build.config.llvm_static {
+        cargo.env("LLVM_STATIC", "1");
+    }
     if build.config.llvm_static_stdcpp {
         cargo.env("LLVM_STATIC_STDCPP",
                   compiler_file(build.cxx(target), "libstdc++.a"));

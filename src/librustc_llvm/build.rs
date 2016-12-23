@@ -129,6 +129,8 @@ fn main() {
     let mut cmd = Command::new(&llvm_config);
     cmd.arg("--libs");
 
+    let llvm_static = env::var_os("LLVM_STATIC").is_some();
+
     // Force static linking with "--link-static" if available.
     let mut version_cmd = Command::new(&llvm_config);
     version_cmd.arg("--version");
@@ -137,7 +139,9 @@ fn main() {
     if let (Some(major), Some(minor)) = (parts.next().and_then(|s| s.parse::<u32>().ok()),
                                          parts.next().and_then(|s| s.parse::<u32>().ok())) {
         if major > 3 || (major == 3 && minor >= 8) {
-            cmd.arg("--link-static");
+            if llvm_static {
+                cmd.arg("--link-static");
+            }
         }
     }
 
@@ -173,7 +177,7 @@ fn main() {
             continue;
         }
 
-        let kind = if name.starts_with("LLVM") {
+        let kind = if llvm_static && name.starts_with("LLVM") {
             "static"
         } else {
             "dylib"

@@ -50,6 +50,7 @@ pub struct Config {
     pub llvm_assertions: bool,
     pub llvm_optimize: bool,
     pub llvm_version_check: bool,
+    pub llvm_static: bool,
     pub llvm_static_stdcpp: bool,
 
     // rust codegen options
@@ -136,6 +137,7 @@ struct Llvm {
     assertions: Option<bool>,
     optimize: Option<bool>,
     version_check: Option<bool>,
+    static_link: Option<bool>,
     static_libstdcpp: Option<bool>,
 }
 
@@ -241,6 +243,7 @@ impl Config {
             set(&mut config.llvm_assertions, llvm.assertions);
             set(&mut config.llvm_optimize, llvm.optimize);
             set(&mut config.llvm_version_check, llvm.version_check);
+            set(&mut config.llvm_static, llvm.static_link);
             set(&mut config.llvm_static_stdcpp, llvm.static_libstdcpp);
         }
         if let Some(ref rust) = toml.rust {
@@ -333,6 +336,7 @@ impl Config {
                 ("LLVM_ASSERTIONS", self.llvm_assertions),
                 ("OPTIMIZE_LLVM", self.llvm_optimize),
                 ("LLVM_VERSION_CHECK", self.llvm_version_check),
+                ("LLVM_STATIC", self.llvm_static),
                 ("LLVM_STATIC_STDCPP", self.llvm_static_stdcpp),
                 ("OPTIMIZE", self.rust_optimize),
                 ("DEBUG_ASSERTIONS", self.rust_debug_assertions),
