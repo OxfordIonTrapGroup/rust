@@ -92,6 +92,7 @@
 #![feature(unboxed_closures)]
 #![feature(untagged_unions)]
 #![feature(unwind_attributes)]
+#![cfg_attr(feature = "i128", feature(i128_type))]
 
 #![cfg_attr(stage0, feature(associated_consts))]
 
@@ -118,6 +119,9 @@ mod uint_macros;
 #[path = "num/i16.rs"]   pub mod i16;
 #[path = "num/i32.rs"]   pub mod i32;
 #[path = "num/i64.rs"]   pub mod i64;
+
+// SNAP
+#[cfg(feature = "i128")]
 #[path = "num/i128.rs"]   pub mod i128;
 
 #[path = "num/usize.rs"] pub mod usize;
@@ -125,6 +129,9 @@ mod uint_macros;
 #[path = "num/u16.rs"]   pub mod u16;
 #[path = "num/u32.rs"]   pub mod u32;
 #[path = "num/u64.rs"]   pub mod u64;
+
+// SNAP
+#[cfg(feature = "i128")]
 #[path = "num/u128.rs"]   pub mod u128;
 
 #[path = "num/f32.rs"]   pub mod f32;

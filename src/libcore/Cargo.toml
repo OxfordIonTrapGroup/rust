@@ -9,6 +9,9 @@ path = "lib.rs"
 test = false
 bench = false
 
+[features]
+i128 = []
+
 [dev-dependencies]
 rand = { path = "../librand" }
 

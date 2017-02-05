@@ -1500,12 +1500,14 @@ impl_spec_from_elem!(i8, |x| x == 0);
 impl_spec_from_elem!(i16, |x| x == 0);
 impl_spec_from_elem!(i32, |x| x == 0);
 impl_spec_from_elem!(i64, |x| x == 0);
+#[cfg(feature = "i128")]
 impl_spec_from_elem!(i128, |x| x == 0);
 impl_spec_from_elem!(isize, |x| x == 0);
 
 impl_spec_from_elem!(u16, |x| x == 0);
 impl_spec_from_elem!(u32, |x| x == 0);
 impl_spec_from_elem!(u64, |x| x == 0);
+#[cfg(feature = "i128")]
 impl_spec_from_elem!(u128, |x| x == 0);
 impl_spec_from_elem!(usize, |x| x == 0);
 

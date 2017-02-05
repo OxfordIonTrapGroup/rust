@@ -153,6 +153,7 @@ clone_impl! { i8 }
 clone_impl! { i16 }
 clone_impl! { i32 }
 clone_impl! { i64 }
+#[cfg(feature = "i128")]
 clone_impl! { i128 }
 
 clone_impl! { usize }
@@ -160,6 +161,7 @@ clone_impl! { u8 }
 clone_impl! { u16 }
 clone_impl! { u32 }
 clone_impl! { u64 }
+#[cfg(feature = "i128")]
 clone_impl! { u128 }
 
 clone_impl! { f32 }

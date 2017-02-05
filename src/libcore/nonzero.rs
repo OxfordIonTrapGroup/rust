@@ -30,7 +30,9 @@ unsafe impl Zeroable for i32 {}
 unsafe impl Zeroable for u32 {}
 unsafe impl Zeroable for i64 {}
 unsafe impl Zeroable for u64 {}
+#[cfg(feature = "i128")]
 unsafe impl Zeroable for i128 {}
+#[cfg(feature = "i128")]
 unsafe impl Zeroable for u128 {}
 
 /// A wrapper type for raw pointers and integers that will never be

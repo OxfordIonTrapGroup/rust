@@ -298,6 +298,7 @@ pub trait Hasher {
     fn write_u64(&mut self, i: u64) {
         self.write(&unsafe { mem::transmute::<_, [u8; 8]>(i) })
     }
+    #[cfg(feature = "i128")]
     /// Writes a single `u128` into this hasher.
     #[inline]
     #[unstable(feature = "i128", issue = "35118")]
@@ -338,6 +339,7 @@ pub trait Hasher {
     fn write_i64(&mut self, i: i64) {
         self.write_u64(i as u64)
     }
+    #[cfg(feature = "i128")]
     /// Writes a single `i128` into this hasher.
     #[inline]
     #[unstable(feature = "i128", issue = "35118")]
@@ -523,6 +525,9 @@ mod impls {
         (i32, write_i32),
         (i64, write_i64),
         (isize, write_isize),
+    }
+    #[cfg(feature = "i128")]
+    impl_write! {
         (u128, write_u128),
         (i128, write_i128),
     }
