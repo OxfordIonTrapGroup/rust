@@ -267,7 +267,9 @@ macro_rules! add_impl {
     )*)
 }
 
-add_impl! { usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 f32 f64 }
+add_impl! { usize u8 u16 u32 u64 isize i8 i16 i32 i64 f32 f64 }
+#[cfg(i128)]
+add_impl! { u128 i128 }
 
 /// The `Sub` trait is used to specify the functionality of `-`.
 ///
@@ -340,7 +342,9 @@ macro_rules! sub_impl {
     )*)
 }
 
-sub_impl! { usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 f32 f64 }
+sub_impl! { usize u8 u16 u32 u64 isize i8 i16 i32 i64 f32 f64 }
+#[cfg(i128)]
+sub_impl! { u128 i128 }
 
 /// The `Mul` trait is used to specify the functionality of `*`.
 ///
@@ -462,7 +466,9 @@ macro_rules! mul_impl {
     )*)
 }
 
-mul_impl! { usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 f32 f64 }
+mul_impl! { usize u8 u16 u32 u64 isize i8 i16 i32 i64 f32 f64 }
+#[cfg(i128)]
+mul_impl! { u128 i128 }
 
 /// The `Div` trait is used to specify the functionality of `/`.
 ///
@@ -591,7 +597,9 @@ macro_rules! div_impl_integer {
     )*)
 }
 
-div_impl_integer! { usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 }
+div_impl_integer! { usize u8 u16 u32 u64 isize i8 i16 i32 i64 }
+#[cfg(i128)]
+div_impl_integer! { u128 i128 }
 
 macro_rules! div_impl_float {
     ($($t:ty)*) => ($(
@@ -670,7 +678,9 @@ macro_rules! rem_impl_integer {
     )*)
 }
 
-rem_impl_integer! { usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 }
+rem_impl_integer! { usize u8 u16 u32 u64 isize i8 i16 i32 i64 }
+#[cfg(i128)]
+rem_impl_integer! { u128 i128 }
 
 
 macro_rules! rem_impl_float {
@@ -766,7 +776,9 @@ macro_rules! neg_impl_unsigned {
 }
 
 // neg_impl_unsigned! { usize u8 u16 u32 u64 }
-neg_impl_numeric! { isize i8 i16 i32 i64 i128 f32 f64 }
+neg_impl_numeric! { isize i8 i16 i32 i64 f32 f64 }
+#[cfg(i128)]
+neg_impl_numeric! { i128 }
 
 /// The `Not` trait is used to specify the functionality of unary `!`.
 ///
@@ -824,7 +836,9 @@ macro_rules! not_impl {
     )*)
 }
 
-not_impl! { bool usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 }
+not_impl! { bool usize u8 u16 u32 u64 isize i8 i16 i32 i64 }
+#[cfg(i128)]
+not_impl! { u128 i128 }
 
 /// The `BitAnd` trait is used to specify the functionality of `&`.
 ///
@@ -907,7 +921,9 @@ macro_rules! bitand_impl {
     )*)
 }
 
-bitand_impl! { bool usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 }
+bitand_impl! { bool usize u8 u16 u32 u64 isize i8 i16 i32 i64 }
+#[cfg(i128)]
+bitand_impl! { u128 i128 }
 
 /// The `BitOr` trait is used to specify the functionality of `|`.
 ///
@@ -990,7 +1006,9 @@ macro_rules! bitor_impl {
     )*)
 }
 
-bitor_impl! { bool usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 }
+bitor_impl! { bool usize u8 u16 u32 u64 isize i8 i16 i32 i64 }
+#[cfg(i128)]
+bitor_impl! { u128 i128 }
 
 /// The `BitXor` trait is used to specify the functionality of `^`.
 ///
@@ -1076,7 +1094,9 @@ macro_rules! bitxor_impl {
     )*)
 }
 
-bitxor_impl! { bool usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 }
+bitxor_impl! { bool usize u8 u16 u32 u64 isize i8 i16 i32 i64 }
+#[cfg(i128)]
+bitxor_impl! { u128 i128 }
 
 /// The `Shl` trait is used to specify the functionality of `<<`.
 ///
@@ -1167,6 +1187,7 @@ macro_rules! shl_impl_all {
         shl_impl! { $t, u16 }
         shl_impl! { $t, u32 }
         shl_impl! { $t, u64 }
+        #[cfg(i128)]
         shl_impl! { $t, u128 }
         shl_impl! { $t, usize }
 
@@ -1174,12 +1195,15 @@ macro_rules! shl_impl_all {
         shl_impl! { $t, i16 }
         shl_impl! { $t, i32 }
         shl_impl! { $t, i64 }
+        #[cfg(i128)]
         shl_impl! { $t, i128 }
         shl_impl! { $t, isize }
     )*)
 }
 
-shl_impl_all! { u8 u16 u32 u64 u128 usize i8 i16 i32 i64 isize i128 }
+shl_impl_all! { u8 u16 u32 u64 usize i8 i16 i32 i64 isize }
+#[cfg(i128)]
+shl_impl_all! { u128 i128 }
 
 /// The `Shr` trait is used to specify the functionality of `>>`.
 ///
@@ -1270,6 +1294,7 @@ macro_rules! shr_impl_all {
         shr_impl! { $t, u16 }
         shr_impl! { $t, u32 }
         shr_impl! { $t, u64 }
+        #[cfg(i128)]
         shr_impl! { $t, u128 }
         shr_impl! { $t, usize }
 
@@ -1277,12 +1302,15 @@ macro_rules! shr_impl_all {
         shr_impl! { $t, i16 }
         shr_impl! { $t, i32 }
         shr_impl! { $t, i64 }
+        #[cfg(i128)]
         shr_impl! { $t, i128 }
         shr_impl! { $t, isize }
     )*)
 }
 
-shr_impl_all! { u8 u16 u32 u64 u128 usize i8 i16 i32 i64 i128 isize }
+shr_impl_all! { u8 u16 u32 u64 usize i8 i16 i32 i64 isize }
+#[cfg(i128)]
+shr_impl_all! { u128 i128 }
 
 /// The `AddAssign` trait is used to specify the functionality of `+=`.
 ///
@@ -1338,7 +1366,9 @@ macro_rules! add_assign_impl {
     )+)
 }
 
-add_assign_impl! { usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 f32 f64 }
+add_assign_impl! { usize u8 u16 u32 u64 isize i8 i16 i32 i64 f32 f64 }
+#[cfg(i128)]
+add_assign_impl! { u128 i128 }
 
 /// The `SubAssign` trait is used to specify the functionality of `-=`.
 ///
@@ -1394,7 +1424,9 @@ macro_rules! sub_assign_impl {
     )+)
 }
 
-sub_assign_impl! { usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 f32 f64 }
+sub_assign_impl! { usize u8 u16 u32 u64 isize i8 i16 i32 i64 f32 f64 }
+#[cfg(i128)]
+sub_assign_impl! { u128 i128 }
 
 /// The `MulAssign` trait is used to specify the functionality of `*=`.
 ///
@@ -1439,7 +1471,9 @@ macro_rules! mul_assign_impl {
     )+)
 }
 
-mul_assign_impl! { usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 f32 f64 }
+mul_assign_impl! { usize u8 u16 u32 u64 isize i8 i16 i32 i64 f32 f64 }
+#[cfg(i128)]
+mul_assign_impl! { u128 i128 }
 
 /// The `DivAssign` trait is used to specify the functionality of `/=`.
 ///
@@ -1483,7 +1517,9 @@ macro_rules! div_assign_impl {
     )+)
 }
 
-div_assign_impl! { usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 f32 f64 }
+div_assign_impl! { usize u8 u16 u32 u64 isize i8 i16 i32 i64 f32 f64 }
+#[cfg(i128)]
+div_assign_impl! { u128 i128 }
 
 /// The `RemAssign` trait is used to specify the functionality of `%=`.
 ///
@@ -1527,7 +1563,9 @@ macro_rules! rem_assign_impl {
     )+)
 }
 
-rem_assign_impl! { usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 f32 f64 }
+rem_assign_impl! { usize u8 u16 u32 u64 isize i8 i16 i32 i64 f32 f64 }
+#[cfg(i128)]
+rem_assign_impl! { u128 i128 }
 
 /// The `BitAndAssign` trait is used to specify the functionality of `&=`.
 ///
@@ -1613,7 +1651,9 @@ macro_rules! bitand_assign_impl {
     )+)
 }
 
-bitand_assign_impl! { bool usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 }
+bitand_assign_impl! { bool usize u8 u16 u32 u64 isize i8 i16 i32 i64 }
+#[cfg(i128)]
+bitand_assign_impl! { u128 i128 }
 
 /// The `BitOrAssign` trait is used to specify the functionality of `|=`.
 ///
@@ -1657,7 +1697,9 @@ macro_rules! bitor_assign_impl {
     )+)
 }
 
-bitor_assign_impl! { bool usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 }
+bitor_assign_impl! { bool usize u8 u16 u32 u64 isize i8 i16 i32 i64 }
+#[cfg(i128)]
+bitor_assign_impl! { u128 i128 }
 
 /// The `BitXorAssign` trait is used to specify the functionality of `^=`.
 ///
@@ -1701,7 +1743,9 @@ macro_rules! bitxor_assign_impl {
     )+)
 }
 
-bitxor_assign_impl! { bool usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128 }
+bitxor_assign_impl! { bool usize u8 u16 u32 u64 isize i8 i16 i32 i64 }
+#[cfg(i128)]
+bitxor_assign_impl! { u128 i128 }
 
 /// The `ShlAssign` trait is used to specify the functionality of `<<=`.
 ///
@@ -1754,6 +1798,7 @@ macro_rules! shl_assign_impl_all {
         shl_assign_impl! { $t, u16 }
         shl_assign_impl! { $t, u32 }
         shl_assign_impl! { $t, u64 }
+        #[cfg(i128)]
         shl_assign_impl! { $t, u128 }
         shl_assign_impl! { $t, usize }
 
@@ -1761,12 +1806,15 @@ macro_rules! shl_assign_impl_all {
         shl_assign_impl! { $t, i16 }
         shl_assign_impl! { $t, i32 }
         shl_assign_impl! { $t, i64 }
+        #[cfg(i128)]
         shl_assign_impl! { $t, i128 }
         shl_assign_impl! { $t, isize }
     )*)
 }
 
-shl_assign_impl_all! { u8 u16 u32 u64 u128 usize i8 i16 i32 i64 i128 isize }
+shl_assign_impl_all! { u8 u16 u32 u64 usize i8 i16 i32 i64 isize }
+#[cfg(i128)]
+shl_assign_impl_all! { u128 i128 }
 
 /// The `ShrAssign` trait is used to specify the functionality of `>>=`.
 ///
@@ -1819,6 +1867,7 @@ macro_rules! shr_assign_impl_all {
         shr_assign_impl! { $t, u16 }
         shr_assign_impl! { $t, u32 }
         shr_assign_impl! { $t, u64 }
+        #[cfg(i128)]
         shr_assign_impl! { $t, u128 }
         shr_assign_impl! { $t, usize }
 
@@ -1826,12 +1875,15 @@ macro_rules! shr_assign_impl_all {
         shr_assign_impl! { $t, i16 }
         shr_assign_impl! { $t, i32 }
         shr_assign_impl! { $t, i64 }
+        #[cfg(i128)]
         shr_assign_impl! { $t, i128 }
         shr_assign_impl! { $t, isize }
     )*)
 }
 
-shr_assign_impl_all! { u8 u16 u32 u64 u128 usize i8 i16 i32 i64 i128 isize }
+shr_assign_impl_all! { u8 u16 u32 u64 usize i8 i16 i32 i64 isize }
+#[cfg(i128)]
+shr_assign_impl_all! { u128 i128 }
 
 /// The `Index` trait is used to specify the functionality of indexing operations
 /// like `container[index]` when used in an immutable context.
