@@ -145,7 +145,7 @@ macro_rules! zero_one_impl {
     )*)
 }
 zero_one_impl! { u8 u16 u32 u64 usize i8 i16 i32 i64 isize }
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 zero_one_impl! { u128 i128 }
 
 macro_rules! zero_one_impl_float {
@@ -1301,7 +1301,7 @@ impl i64 {
 }
 
 // SNAP
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 #[lang = "i128"]
 impl i128 {
     int_impl! { i128, u128, 128,
@@ -2343,7 +2343,7 @@ impl u64 {
 }
 
 // SNAP
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 #[lang = "u128"]
 impl u128 {
     uint_impl! { u128, 128,
@@ -2569,7 +2569,7 @@ macro_rules! from_str_radix_int_impl {
     )*}
 }
 from_str_radix_int_impl! { isize i8 i16 i32 i64 usize u8 u16 u32 u64 }
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 from_str_radix_int_impl! { u128 i128 }
 
 /// The error type returned when a checked integral type conversion fails.
@@ -2614,50 +2614,50 @@ macro_rules! same_sign_try_from_int_impl {
     )*}
 }
 
-#[cfg(not(i128))]
+#[cfg(not(feature = "i128"))]
 same_sign_try_from_int_impl!(u64, u8, u8, u16, u32, u64, usize);
-#[cfg(not(i128))]
+#[cfg(not(feature = "i128"))]
 same_sign_try_from_int_impl!(i64, i8, i8, i16, i32, i64, isize);
-#[cfg(not(i128))]
+#[cfg(not(feature = "i128"))]
 same_sign_try_from_int_impl!(u64, u16, u8, u16, u32, u64, usize);
-#[cfg(not(i128))]
+#[cfg(not(feature = "i128"))]
 same_sign_try_from_int_impl!(i64, i16, i8, i16, i32, i64, isize);
-#[cfg(not(i128))]
+#[cfg(not(feature = "i128"))]
 same_sign_try_from_int_impl!(u64, u32, u8, u16, u32, u64, usize);
-#[cfg(not(i128))]
+#[cfg(not(feature = "i128"))]
 same_sign_try_from_int_impl!(i64, i32, i8, i16, i32, i64, isize);
-#[cfg(not(i128))]
+#[cfg(not(feature = "i128"))]
 same_sign_try_from_int_impl!(u64, u64, u8, u16, u32, u64, usize);
-#[cfg(not(i128))]
+#[cfg(not(feature = "i128"))]
 same_sign_try_from_int_impl!(i64, i64, i8, i16, i32, i64, isize);
-#[cfg(not(i128))]
+#[cfg(not(feature = "i128"))]
 same_sign_try_from_int_impl!(u64, usize, u8, u16, u32, u64, usize);
-#[cfg(not(i128))]
+#[cfg(not(feature = "i128"))]
 same_sign_try_from_int_impl!(i64, isize, i8, i16, i32, i64, isize);
 
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 same_sign_try_from_int_impl!(u128, u8, u8, u16, u32, u64, u128, usize);
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 same_sign_try_from_int_impl!(i128, i8, i8, i16, i32, i64, i128, isize);
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 same_sign_try_from_int_impl!(u128, u16, u8, u16, u32, u64, u128, usize);
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 same_sign_try_from_int_impl!(i128, i16, i8, i16, i32, i64, i128, isize);
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 same_sign_try_from_int_impl!(u128, u32, u8, u16, u32, u64, u128, usize);
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 same_sign_try_from_int_impl!(i128, i32, i8, i16, i32, i64, i128, isize);
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 same_sign_try_from_int_impl!(u128, u64, u8, u16, u32, u64, u128, usize);
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 same_sign_try_from_int_impl!(i128, i64, i8, i16, i32, i64, i128, isize);
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 same_sign_try_from_int_impl!(u128, u128, u8, u16, u32, u64, u128, usize);
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 same_sign_try_from_int_impl!(i128, i128, i8, i16, i32, i64, i128, isize);
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 same_sign_try_from_int_impl!(u128, usize, u8, u16, u32, u64, u128, usize);
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 same_sign_try_from_int_impl!(i128, isize, i8, i16, i32, i64, i128, isize);
 
 macro_rules! cross_sign_from_int_impl {
@@ -2692,28 +2692,28 @@ macro_rules! cross_sign_from_int_impl {
     )*}
 }
 
-#[cfg(not(i128))]
+#[cfg(not(feature = "i128"))]
 cross_sign_from_int_impl!(u8, i8, i16, i32, i64, isize);
-#[cfg(not(i128))]
+#[cfg(not(feature = "i128"))]
 cross_sign_from_int_impl!(u16, i8, i16, i32, i64, isize);
-#[cfg(not(i128))]
+#[cfg(not(feature = "i128"))]
 cross_sign_from_int_impl!(u32, i8, i16, i32, i64, isize);
-#[cfg(not(i128))]
+#[cfg(not(feature = "i128"))]
 cross_sign_from_int_impl!(u64, i8, i16, i32, i64, isize);
-#[cfg(not(i128))]
+#[cfg(not(feature = "i128"))]
 cross_sign_from_int_impl!(usize, i8, i16, i32, i64, isize);
 
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 cross_sign_from_int_impl!(u8, i8, i16, i32, i64, i128, isize);
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 cross_sign_from_int_impl!(u16, i8, i16, i32, i64, i128, isize);
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 cross_sign_from_int_impl!(u32, i8, i16, i32, i64, i128, isize);
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 cross_sign_from_int_impl!(u64, i8, i16, i32, i64, i128, isize);
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 cross_sign_from_int_impl!(u128, i8, i16, i32, i64, i128, isize);
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 cross_sign_from_int_impl!(usize, i8, i16, i32, i64, i128, isize);
 
 #[doc(hidden)]
@@ -2743,7 +2743,7 @@ macro_rules! doit {
     })*)
 }
 doit! { i8 i16 i32 i64 isize u8 u16 u32 u64 usize }
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 doit! { i128 u128 }
 
 fn from_str_radix<T: FromStrRadixHelper>(src: &str, radix: u32) -> Result<T, ParseIntError> {
@@ -2878,50 +2878,50 @@ macro_rules! impl_from {
 impl_from! { u8, u16 }
 impl_from! { u8, u32 }
 impl_from! { u8, u64 }
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 impl_from! { u8, u128 }
 impl_from! { u8, usize }
 impl_from! { u16, u32 }
 impl_from! { u16, u64 }
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 impl_from! { u16, u128 }
 impl_from! { u32, u64 }
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 impl_from! { u32, u128 }
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 impl_from! { u64, u128 }
 
 // Signed -> Signed
 impl_from! { i8, i16 }
 impl_from! { i8, i32 }
 impl_from! { i8, i64 }
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 impl_from! { i8, i128 }
 impl_from! { i8, isize }
 impl_from! { i16, i32 }
 impl_from! { i16, i64 }
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 impl_from! { i16, i128 }
 impl_from! { i32, i64 }
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 impl_from! { i32, i128 }
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 impl_from! { i64, i128 }
 
 // Unsigned -> Signed
 impl_from! { u8, i16 }
 impl_from! { u8, i32 }
 impl_from! { u8, i64 }
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 impl_from! { u8, i128 }
 impl_from! { u16, i32 }
 impl_from! { u16, i64 }
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 impl_from! { u16, i128 }
 impl_from! { u32, i64 }
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 impl_from! { u32, i128 }
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 impl_from! { u64, i128 }
 
 // Note: integers can only be represented with full precision in a float if

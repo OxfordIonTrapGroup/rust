@@ -89,7 +89,7 @@
 #![feature(staged_api)]
 #![feature(unboxed_closures)]
 #![feature(never_type)]
-#![cfg_attr(not(i128), feature(i128_type))]
+#![cfg_attr(feature = "i128", feature(i128_type))]
 #![feature(prelude_import)]
 
 #[prelude_import]
@@ -121,7 +121,7 @@ mod uint_macros;
 #[path = "num/i64.rs"]   pub mod i64;
 
 // SNAP
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 #[path = "num/i128.rs"]   pub mod i128;
 
 #[path = "num/usize.rs"] pub mod usize;
@@ -131,7 +131,7 @@ mod uint_macros;
 #[path = "num/u64.rs"]   pub mod u64;
 
 // SNAP
-#[cfg(i128)]
+#[cfg(feature = "i128")]
 #[path = "num/u128.rs"]   pub mod u128;
 
 #[path = "num/f32.rs"]   pub mod f32;
