@@ -21,5 +21,6 @@
 extern {}
 
 extern crate rustdoc;
+extern crate rustc_llvm;
 
 fn main() { rustdoc::main() }

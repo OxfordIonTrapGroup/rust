@@ -440,6 +440,16 @@ impl Step for Rustdoc {
         cargo.env("RUSTC_DEBUGINFO", builder.config.rust_debuginfo.to_string())
              .env("RUSTC_DEBUGINFO_LINES", builder.config.rust_debuginfo_lines.to_string());
 
+        let llvm_config = builder.ensure(native::Llvm {
+            target: builder.config.build,
+            emscripten: false,
+        });
+        cargo.env("LLVM_CONFIG", llvm_config);
+
+        if builder.config.llvm_link_shared {
+            cargo.env("LLVM_LINK_SHARED", "1");
+        }
+
         let _folder = builder.fold_output(|| format!("stage{}-rustdoc", target_compiler.stage));
         builder.info(&format!("Building rustdoc for stage{} ({})",
             target_compiler.stage, target_compiler.host));
