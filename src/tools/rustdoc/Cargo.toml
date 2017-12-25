@@ -12,3 +12,4 @@ path = "main.rs"
 
 [dependencies]
 rustdoc = { path = "../../librustdoc" }
+rustc_llvm = { path = "../../librustc_llvm" }

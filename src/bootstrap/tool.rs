@@ -337,6 +337,12 @@ impl Step for Rustdoc {
         cargo.env("RUSTC_DEBUGINFO", builder.config.rust_debuginfo.to_string())
              .env("RUSTC_DEBUGINFO_LINES", builder.config.rust_debuginfo_lines.to_string());
 
+        cargo.env("LLVM_CONFIG", builder.llvm_config(target));
+
+        if build.config.llvm_link_shared {
+            cargo.env("LLVM_LINK_SHARED", "1");
+        }
+
         build.run(&mut cargo);
         // Cargo adds a number of paths to the dylib search path on windows, which results in
         // the wrong rustdoc being executed. To avoid the conflicting rustdocs, we name the "tool"
