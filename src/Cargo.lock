@@ -1858,6 +1858,7 @@ dependencies = [
 name = "rustdoc-tool"
 version = "0.0.0"
 dependencies = [
+ "rustc_llvm 0.0.0",
  "rustdoc 0.0.0",
 ]
 
